@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrowUp.Service", "GrowUpClient\GrowUp.Service.csproj", "{1F29F6D5-A439-4D8F-9378-D7358DB5D970}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrowUp.IoC", "GrowUp.IoC\GrowUp.IoC.csproj", "{DF7B6619-2760-40F6-A2D0-6F43640C12AF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1F29F6D5-A439-4D8F-9378-D7358DB5D970}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F29F6D5-A439-4D8F-9378-D7358DB5D970}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F29F6D5-A439-4D8F-9378-D7358DB5D970}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F29F6D5-A439-4D8F-9378-D7358DB5D970}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF7B6619-2760-40F6-A2D0-6F43640C12AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF7B6619-2760-40F6-A2D0-6F43640C12AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF7B6619-2760-40F6-A2D0-6F43640C12AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF7B6619-2760-40F6-A2D0-6F43640C12AF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
