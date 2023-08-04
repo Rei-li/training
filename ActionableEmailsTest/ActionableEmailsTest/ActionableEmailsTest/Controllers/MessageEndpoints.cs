@@ -7,7 +7,8 @@ public static class MessageEndpoints
     {
         routes.MapGet("/api/Message", () =>
         {
-            return new [] { new Message() };
+            var data = File.ReadAllText("storage.txt");
+            return new [] { new Message() { Data = data } };
         })
         .WithName("GetAllMessages")
         .Produces<Message[]>(StatusCodes.Status200OK);
@@ -28,6 +29,7 @@ public static class MessageEndpoints
 
         routes.MapPost("/api/Message/", (Message model) =>
         {
+            File.WriteAllText("storage.txt", model.Data);
             //return Results.Created($"/api/Messages/{model.ID}", model);
         })
         .WithName("CreateMessage")
