@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActionableEmailsTest", "ActionableEmailsTest\ActionableEmailsTest.csproj", "{44419A27-CF6D-44A7-9E0E-C250E6A17B7B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{44419A27-CF6D-44A7-9E0E-C250E6A17B7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44419A27-CF6D-44A7-9E0E-C250E6A17B7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44419A27-CF6D-44A7-9E0E-C250E6A17B7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44419A27-CF6D-44A7-9E0E-C250E6A17B7B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B42D7D41-A5EB-425D-87FA-B46DB48131C6}
+	EndGlobalSection
+EndGlobal
