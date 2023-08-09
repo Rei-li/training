@@ -16,9 +16,11 @@ namespace ActionableEmailsTestApi.Controllers
     {
         static string test = "";
         static string requestTest = "";
+        static string cardSender = "";
+        static string actionSender = "";
 
-        static string cardSender = "cardSender: {0}";
-        static string actionSender = "actionSender: {0}";
+        static string cardSenderString = "cardSender: {0}";
+        static string actionSenderString = "actionSender: {0}";
 
         // GET api/values
         public IEnumerable<string> Get()
@@ -88,8 +90,8 @@ namespace ActionableEmailsTestApi.Controllers
                 // You should also return the CARD-ACTION-STATUS header in the response.
                 // The value of the header will be displayed to the user.
 
-                string.Format(cardSender, result.Sender);
-                string.Format(actionSender, result.ActionPerformer);
+                cardSender = string.Format(cardSenderString, result.Sender);
+                actionSender = string.Format(actionSenderString, result.ActionPerformer);
                 
 
                 // Further business logic code here to process the expense report.
