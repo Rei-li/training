@@ -1,0 +1,140 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.O365.ActionableMessages.Utilities</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.O365.ActionableMessages.Utilities.ActionableMessageTokenValidationResult">
+            <summary>
+            Represents claims from an actionable message token.
+            </summary>
+        </member>
+        <member name="P:Microsoft.O365.ActionableMessages.Utilities.ActionableMessageTokenValidationResult.ValidationSucceeded">
+            <summary>
+            Gets or sets the flag to indicate if a token validation operation succeeded.
+            </summary>
+        </member>
+        <member name="P:Microsoft.O365.ActionableMessages.Utilities.ActionableMessageTokenValidationResult.ActionPerformer">
+            <summary>
+            Gets or sets the email address of the person who performed the action. In some cases,
+            it will be the hash of the email address.
+            </summary>
+        </member>
+        <member name="P:Microsoft.O365.ActionableMessages.Utilities.ActionableMessageTokenValidationResult.Sender">
+            <summary>
+            Gets or sets the email address of the sender of the actionable message.
+            </summary>
+        </member>
+        <member name="P:Microsoft.O365.ActionableMessages.Utilities.ActionableMessageTokenValidationResult.Exception">
+            <summary>
+            Gets or sets the exception happened during the token validation.
+            </summary>
+        </member>
+        <member name="M:Microsoft.O365.ActionableMessages.Utilities.ActionableMessageTokenValidationResult.#ctor">
+            <summary>
+            Constructor of the <see cref="T:Microsoft.O365.ActionableMessages.Utilities.ActionableMessageTokenValidationResult"/> class.
+            </summary>
+        </member>
+        <member name="T:Microsoft.O365.ActionableMessages.Utilities.ActionableMessageTokenValidator">
+            <summary>
+            Class to validate an actionable message token.
+            </summary>
+        </member>
+        <member name="F:Microsoft.O365.ActionableMessages.Utilities.ActionableMessageTokenValidator.TokenTimeValidationClockSkewBufferInMinutes">
+            <summary>
+            The clock skew to apply when validating times in a token.
+            </summary>
+        </member>
+        <member name="F:Microsoft.O365.ActionableMessages.Utilities.ActionableMessageTokenValidator.configurationManager">
+            <summary>
+            The OpenID configuration data retriever.
+            </summary>
+        </member>
+        <member name="M:Microsoft.O365.ActionableMessages.Utilities.ActionableMessageTokenValidator.#ctor">
+            <summary>
+            Constructor of the <see cref="T:Microsoft.O365.ActionableMessages.Utilities.ActionableMessageTokenValidator"/> class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.O365.ActionableMessages.Utilities.ActionableMessageTokenValidator.#ctor(Microsoft.IdentityModel.Protocols.IConfigurationManager{Microsoft.IdentityModel.Protocols.OpenIdConnect.OpenIdConnectConfiguration})">
+            <summary>
+            Constructor of the <see cref="T:Microsoft.O365.ActionableMessages.Utilities.ActionableMessageTokenValidator"/> class. 
+            DO NOT use this constructor. This constructor is used for unit testing.
+            </summary>
+            <param name="configurationManager">The configuration manager to read the OpenID configuration from.</param>
+        </member>
+        <member name="M:Microsoft.O365.ActionableMessages.Utilities.ActionableMessageTokenValidator.ValidateTokenAsync(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.O365.ActionableMessages.Utilities.ActionableMessageTokenValidator.GetClaimValue(System.Security.Claims.ClaimsIdentity,System.String)">
+            <summary>
+            Gets the value of a claim type from the identity.
+            </summary>
+            <param name="identity">The identity to read the claim from.</param>
+            <param name="claimType">The claim type.</param>
+            <returns>The value of the claim if it exists; else is null.</returns>
+        </member>
+        <member name="T:Microsoft.O365.ActionableMessages.Utilities.IActionableMessageTokenValidator">
+            <summary>
+            Represents an actionable message token validator.
+            </summary>
+        </member>
+        <member name="M:Microsoft.O365.ActionableMessages.Utilities.IActionableMessageTokenValidator.ValidateTokenAsync(System.String,System.String)">
+            <summary>
+            Validates the token with the given target service base URL.
+            </summary>
+            <param name="token">The token to validate.</param>
+            <param name="targetServiceBaseUrl">The expected target service base URL.</param>
+            <returns>The result of the validation.</returns>
+        </member>
+        <member name="T:Microsoft.O365.ActionableMessages.Utilities.O365OpenIdConfiguration">
+            <summary>
+            Class with constants for O365 OpenID configuration.
+            </summary>
+        </member>
+        <member name="F:Microsoft.O365.ActionableMessages.Utilities.O365OpenIdConfiguration.MetadataUrl">
+            <summary>
+            The URL of the O365 OpenID Connect metadata endpoint.
+            </summary>
+        </member>
+        <member name="F:Microsoft.O365.ActionableMessages.Utilities.O365OpenIdConfiguration.TokenIssuer">
+            <summary>
+            The value of the "iss" claim in the token.
+            </summary>
+        </member>
+        <member name="F:Microsoft.O365.ActionableMessages.Utilities.O365OpenIdConfiguration.AppId">
+            <summary>
+            The value of the "appid" claim in the token.
+            </summary>
+        </member>
+        <member name="F:Microsoft.O365.ActionableMessages.Utilities.O365OpenIdConfiguration.Version">
+            <summary>
+            The value of the "ver" claim in the token.
+            </summary>
+        </member>
+        <member name="F:Microsoft.O365.ActionableMessages.Utilities.O365OpenIdConfiguration.TokenType">
+            <summary>
+            The type of token issued by O365.
+            </summary>
+        </member>
+        <member name="F:Microsoft.O365.ActionableMessages.Utilities.O365OpenIdConfiguration.JwtSigningAlgorithm">
+            <summary>
+            The signing algorithm for JWT tokens.
+            </summary>
+        </member>
+        <member name="F:Microsoft.O365.ActionableMessages.Utilities.O365OpenIdConfiguration.HashAlgorithm">
+            <summary>
+            The hash algorithm used to sign the JWT token.
+            </summary>
+        </member>
+        <member name="F:Microsoft.O365.ActionableMessages.Utilities.O365OpenIdConfiguration.AppAuthContextClassReference">
+            <summary>
+            The value of the "appidacr" claim in the token.
+            </summary>
+        </member>
+        <member name="F:Microsoft.O365.ActionableMessages.Utilities.O365OpenIdConfiguration.AuthContextClassReference">
+            <summary>
+            The value of the "acr" claim in the token.
+            </summary>
+        </member>
+    </members>
+</doc>

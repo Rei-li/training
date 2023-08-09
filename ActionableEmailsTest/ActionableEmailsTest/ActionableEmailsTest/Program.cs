@@ -23,6 +23,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.MapMessageEndpoints();
+//app.MapMessageEndpoints();
 
 app.Run();

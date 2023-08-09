@@ -1,49 +1,47 @@
 ﻿using ActionableEmailsTest;
+using Microsoft.AspNetCore.Mvc;
 using NuGet.Protocol;
+using System.Diagnostics;
+using System.Net;
 
 namespace ActionableEmailsTest.Controllers;
 
-public static class MessageEndpoints
+
+
+[ApiController]
+[Route("[controller]")]
+public class MessageEndpointsController : ControllerBase
 {
-    public static void MapMessageEndpoints (this IEndpointRouteBuilder routes)
+    private static readonly string[] Summaries = new[]
     {
-        string test = "";
+        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
+    };
 
-        routes.MapGet("/api/Message", () =>
-        {
-            var data = test;
-            return new [] { new Message() { Data = data } };
-        })
-        .WithName("GetAllMessages")
-        .Produces<Message[]>(StatusCodes.Status200OK);
+    static string test = "";
 
-        routes.MapGet("/api/Message/{id}", (int id) =>
-        {
-            //return new Message { ID = id };
-        })
-        .WithName("GetMessageById")
-        .Produces<Message>(StatusCodes.Status200OK);
+    private readonly ILogger<WeatherForecastController> _logger;
 
-        routes.MapPut("/api/Message/{id}", (int id, Message input) =>
-        {
-            return Results.NoContent();
-        })
-        .WithName("UpdateMessage")
-        .Produces(StatusCodes.Status204NoContent);
+    public MessageEndpointsController(ILogger<WeatherForecastController> logger)
+    {
+        _logger = logger;
+    }
 
-        routes.MapPost("/api/Message/", (Message model) =>
-        {
-        test =  model.Data;
-            //return Results.Created($"/api/Messages/{model.ID}", model);
-        })
-        .WithName("CreateMessage")
-        .Produces<Message>(StatusCodes.Status201Created);
+    [HttpGet(Name = "GetMessage")]
+    public IEnumerable<Message> GetMessage()
+    {
+        var data = test;
+        return new[] { new Message() { Data = data } };
+    }
 
-        routes.MapDelete("/api/Message/{id}", (int id) =>
-        {
-            //return Results.Ok(new Message { ID = id });
-        })
-        .WithName("DeleteMessage")
-        .Produces<Message>(StatusCodes.Status200OK);
+
+    [HttpPost(Name = "PostMessage")]
+    public Message PostMessage(Message model)
+    {
+        test = model.Data;
+
+
+
+        return model;
     }
 }
+
