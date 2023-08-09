@@ -17,10 +17,13 @@ namespace ActionableEmailsTestApi.Controllers
         static string test = "";
         static string requestTest = "";
 
+        static string cardSender = "cardSender: {0}";
+        static string actionSender = "actionSender: {0}";
+
         // GET api/values
         public IEnumerable<string> Get()
         {
-            return new string[] { test, requestTest };
+            return new string[] { test, requestTest, cardSender, actionSender };
         }
 
         // GET api/values/5
@@ -59,7 +62,7 @@ namespace ActionableEmailsTestApi.Controllers
                 // In your code, replace https://api.contoso.com with your service’s base URL.
                 // For example, if the service target URL is https://api.xyz.com/finance/expense?id=1234,
                 // then replace https://api.contoso.com with https://api.xyz.com
-                ActionableMessageTokenValidationResult result = await validator.ValidateTokenAsync(bearerToken, "https://api.contoso.com");
+                ActionableMessageTokenValidationResult result = await validator.ValidateTokenAsync(bearerToken, "https://astionablemessagestestframework.azurewebsites.net");
 
                 if (!result.ValidationSucceeded)
                 {
@@ -70,6 +73,8 @@ namespace ActionableEmailsTestApi.Controllers
 
                     return request.CreateErrorResponse(HttpStatusCode.Unauthorized, new HttpError());
                 }
+
+
 
                 // We have a valid token. We will now verify that the sender and action performer are who
                 // we expect. The sender is the identity of the entity that initially sent the Actionable 
@@ -82,13 +87,10 @@ namespace ActionableEmailsTestApi.Controllers
                 //
                 // You should also return the CARD-ACTION-STATUS header in the response.
                 // The value of the header will be displayed to the user.
-                if (!string.Equals(result.Sender, @"expense@contoso.com", StringComparison.OrdinalIgnoreCase) ||
-                    !string.Equals(result.ActionPerformer, @"john@contoso.com", StringComparison.OrdinalIgnoreCase))
-                {
-                    HttpResponseMessage errorResponse = request.CreateErrorResponse(HttpStatusCode.Forbidden, new HttpError());
-                    errorResponse.Headers.Add("CARD-ACTION-STATUS", "Invalid sender or the action performer is not allowed.");
-                    return errorResponse;
-                }
+
+                string.Format(cardSender, result.Sender);
+                string.Format(actionSender, result.ActionPerformer);
+                
 
                 // Further business logic code here to process the expense report.
             }
