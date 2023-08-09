@@ -18,6 +18,7 @@ namespace ActionableEmailsTestApi.Controllers
         static string requestTest = "";
         static string cardSender = "";
         static string actionSender = "";
+        static List<string> claims = new List<string>();
 
         static string cardSenderString = "cardSender: {0}";
         static string actionSenderString = "actionSender: {0}";
@@ -25,7 +26,14 @@ namespace ActionableEmailsTestApi.Controllers
         // GET api/values
         public IEnumerable<string> Get()
         {
-            return new string[] { test, requestTest, cardSender, actionSender };
+            var result = new List<string> { test, requestTest, cardSender, actionSender };
+
+            foreach(var claim in claims)
+            {
+                result.Add(claim);
+            }
+
+            return result;
         }
 
         // GET api/values/5
@@ -56,7 +64,7 @@ namespace ActionableEmailsTestApi.Controllers
                 // Get the token from the Authorization header 
                 string bearerToken = request.Headers.Authorization.Parameter;
 
-                ActionableMessageTokenValidator validator = new ActionableMessageTokenValidator();
+                CustomActionableMessageTokenValidator validator = new CustomActionableMessageTokenValidator();
 
                 // This will validate that the token has been issued by Microsoft for the
                 // specified target URL i.e. the target matches the intended audience (“aud” claim in token)
@@ -64,7 +72,7 @@ namespace ActionableEmailsTestApi.Controllers
                 // In your code, replace https://api.contoso.com with your service’s base URL.
                 // For example, if the service target URL is https://api.xyz.com/finance/expense?id=1234,
                 // then replace https://api.contoso.com with https://api.xyz.com
-                ActionableMessageTokenValidationResult result = await validator.ValidateTokenAsync(bearerToken, "https://astionablemessagestestframework.azurewebsites.net");
+                CustomActionableMessageTokenValidationResult result = await validator.CustomValidateTokenAsync(bearerToken, "https://astionablemessagestestframework.azurewebsites.net");
 
                 if (!result.ValidationSucceeded)
                 {
@@ -92,7 +100,7 @@ namespace ActionableEmailsTestApi.Controllers
 
                 cardSender = string.Format(cardSenderString, result.Sender);
                 actionSender = string.Format(actionSenderString, result.ActionPerformer);
-                
+                claims = result.OtherClaims;
 
                 // Further business logic code here to process the expense report.
             }
