@@ -32,7 +32,6 @@ jobs:
         
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
-        working-directory: ActionableEmailsTestApi
         with:
           name: ASP-app
           path: '/published/**'
