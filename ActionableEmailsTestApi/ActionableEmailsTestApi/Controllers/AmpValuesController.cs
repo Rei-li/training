@@ -12,6 +12,7 @@ using Microsoft.O365.ActionableMessages.Utilities;
 
 namespace ActionableEmailsTestApi.Controllers
 {
+    [RoutePrefix("api/AmpValues")]
     public class AmpValuesController : ApiController
     {
         static string test = "";
@@ -23,7 +24,8 @@ namespace ActionableEmailsTestApi.Controllers
         static string cardSenderString = "cardSender: {0}";
         static string actionSenderString = "actionSender: {0}";
 
-        // GET api/values
+        [HttpGet]
+        [Route("get")]
         public string Get()
         {
             return test;
@@ -35,7 +37,8 @@ namespace ActionableEmailsTestApi.Controllers
             return "value";
         }
 
-        // POST api/values
+        [HttpPost]
+        [Route("add")]
         public HttpResponseMessage Post(string value)
         {
             HttpRequestMessage request = this.ActionContext.Request;
