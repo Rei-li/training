@@ -36,7 +36,7 @@ namespace ActionableEmailsTestApi.Controllers
         }
 
         // POST api/values
-        public HttpResponseMessage Post([FromBody] string value)
+        public HttpResponseMessage Post(string value)
         {
             HttpRequestMessage request = this.ActionContext.Request;
 
