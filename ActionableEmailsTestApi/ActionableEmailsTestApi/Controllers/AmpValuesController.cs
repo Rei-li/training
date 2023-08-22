@@ -45,6 +45,9 @@ namespace ActionableEmailsTestApi.Controllers
             
 
             HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
+            response.Headers.Add("Access-Control-Allow-Origin", "https://astionablemessagestestframework.azurewebsites.net");
+            response.Headers.Add("AMP-Access-Control-Allow-Source-Origin", "https://amp.gmail.dev");
+            response.Headers.Add("Access-Control-Expose-Headers", "AMP-Access-Control-Allow-Source-Origin");
 
             return response;
         }
