@@ -19,15 +19,15 @@ namespace ActionableEmailsTestApi.Controllers
         static string requestTest = "";
         static string cardSender = "";
         static string actionSender = "";
-        static List<string> claims = new List<string>();
+        static List<string> headers = new List<string>();
 
         static string cardSenderString = "cardSender: {0}";
         static string actionSenderString = "actionSender: {0}";
 
         // GET api/values
-        public string Get()
+        public List<string> Get()
         {
-            return test;
+            return headers;
         }
 
         // GET api/values/5
@@ -41,7 +41,19 @@ namespace ActionableEmailsTestApi.Controllers
         public HttpResponseMessage Post(string __amp_source_origin , [FromBody] AmpModel model)
         {
             HttpRequestMessage request = this.ActionContext.Request;
+            foreach (var header in request.Headers)
+            {
+                var headerValuesString = string.Empty;
+                foreach(var value in header.Value)
+                {
+                    headerValuesString += value;
+                }
+                var headerString = string.Format( "{0} : {1}", header.Key, headerValuesString);
+                headers.Add(headerString);                
+            }
 
+            var modelString = string.Format("value : {0}", model.Value);
+            headers.Add(modelString);
             test = model.Value;
 
             
