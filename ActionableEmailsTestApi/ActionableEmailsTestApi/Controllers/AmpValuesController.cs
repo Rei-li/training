@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using static System.Net.Mime.MediaTypeNames;
 using Microsoft.O365.ActionableMessages.Utilities;
+using ActionableEmailsTestApi.Models;
 
 namespace ActionableEmailsTestApi.Controllers
 {
-    [RoutePrefix("api/AmpValues")]
     public class AmpValuesController : ApiController
     {
         static string test = "";
@@ -24,8 +24,7 @@ namespace ActionableEmailsTestApi.Controllers
         static string cardSenderString = "cardSender: {0}";
         static string actionSenderString = "actionSender: {0}";
 
-        [HttpGet]
-        [Route("get")]
+        // GET api/values
         public string Get()
         {
             return test;
@@ -38,12 +37,12 @@ namespace ActionableEmailsTestApi.Controllers
         }
 
         [HttpPost]
-        [Route("add")]
-        public HttpResponseMessage Post(string value)
+        // POST api/values
+        public HttpResponseMessage Post(string __amp_source_origin , [FromBody] AmpModel model)
         {
             HttpRequestMessage request = this.ActionContext.Request;
 
-            test = value.ToString();
+            test = model.Value;
 
             
 
