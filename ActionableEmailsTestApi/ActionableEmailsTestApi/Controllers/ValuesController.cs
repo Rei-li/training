@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using static System.Net.Mime.MediaTypeNames;
 using Microsoft.O365.ActionableMessages.Utilities;
+using ActionableEmailsTestApi.Models;
 
 namespace ActionableEmailsTestApi.Controllers
 {
@@ -43,11 +44,11 @@ namespace ActionableEmailsTestApi.Controllers
         }
 
         // POST api/values
-        public async Task<HttpResponseMessage> Post([FromBody] string value)
+        public async Task<HttpResponseMessage> Post([FromBody] CommentModel model)
         {
             HttpRequestMessage request = this.ActionContext.Request;
 
-            test = value;
+            test = model.Data;
 
             if (request.Headers.Authorization != null)
             {
