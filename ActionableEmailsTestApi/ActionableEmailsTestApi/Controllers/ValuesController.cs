@@ -16,6 +16,7 @@ namespace ActionableEmailsTestApi.Controllers
     public class ValuesController : ApiController
     {
         static string test = "";
+        static Dictionary<string, string> testDict = new Dictionary<string, string>();
         static string requestTest = "";
         static string cardSender = "";
         static string actionSender = "";
@@ -48,7 +49,10 @@ namespace ActionableEmailsTestApi.Controllers
         {
             HttpRequestMessage request = this.ActionContext.Request;
 
-            test = model.Data;
+            foreach (var t in model.Data)
+            {
+                testDict.Add(t.Key, t.Value);
+            }
 
             if (request.Headers.Authorization != null)
             {
