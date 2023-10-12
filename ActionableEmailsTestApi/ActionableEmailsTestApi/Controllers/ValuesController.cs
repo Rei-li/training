@@ -29,14 +29,15 @@ namespace ActionableEmailsTestApi.Controllers
         public IEnumerable<string> Get()
         {
 
-            var result = new List<string> { requestTest, cardSender, actionSender };
+            //var result = new List<string> { requestTest, cardSender, actionSender };
 
-            foreach(var claim in claims)
-            {
-                result.Add(claim);
-            }
+            //foreach(var claim in claims)
+            //{
+            //    result.Add(claim);
+            //}
 
-            foreach(var value in testDict)
+            var result = new List<string>();
+            foreach (var value in testDict)
             {
                 result.Add(value.Key +": " + value.Value);
             }
