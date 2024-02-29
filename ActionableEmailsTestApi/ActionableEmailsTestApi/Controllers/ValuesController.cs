@@ -117,8 +117,12 @@ namespace ActionableEmailsTestApi.Controllers
                 // Further business logic code here to process the expense report.
             }
 
-            HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
-            response.Headers.Add("CARD-ACTION-STATUS", "The expense was approved.");
+
+            var responceJson = "{\r\n    \"type\": \"AdaptiveCard\",\r\n    \"body\": [\r\n        {\r\n            \"type\": \"TextBlock\",\r\n            \"size\": \"Medium\",\r\n            \"weight\": \"Bolder\",\r\n            \"text\": \"Your responce was processed\"\r\n        }\r\n    ],\r\n    \"$schema\": \"http://adaptivecards.io/schemas/adaptive-card.json\",\r\n    \"version\": \"1.0\"\r\n}";
+
+            HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, responceJson);
+            response.Headers.Add("CARD-ACTION-STATUS", "Accepted");
+            response.Headers.Add("CARD-UPDATE-IN-BODY", "true");
 
             return response;
         }
