@@ -16,7 +16,7 @@ namespace ActionableEmailsTestApi.Controllers
     public class ValuesController : ApiController
     {
         static string test = "";
-        static Dictionary<string, string> testDict = new Dictionary<string, string>();
+        static List <Dictionary<string, string>> testDict = new List<Dictionary<string, string>>();
         static string requestTest = "";
         static string cardSender = "";
         static string actionSender = "";
@@ -37,9 +37,16 @@ namespace ActionableEmailsTestApi.Controllers
             //}
 
             var result = new List<string>();
+            var counter = 1;
             foreach (var value in testDict)
             {
-                result.Add(value.Key +": " + value.Value);
+                
+                foreach (var dict in value)
+                {
+                    result.Add("Response " + counter  + " "+ dict.Key + ": " + dict.Value);
+                }
+                counter++;
+                
             }
 
             return result;
@@ -56,10 +63,13 @@ namespace ActionableEmailsTestApi.Controllers
         {
             HttpRequestMessage request = this.ActionContext.Request;
 
+            var dict =  new Dictionary<string, string>();
             foreach (var t in model.Data)
             {
-                testDict.Add(t.Key, t.Value);
+                dict.Add(t.Key, t.Value);
             }
+            testDict.Add(dict);
+
 
             if (request.Headers.Authorization != null)
             {
@@ -116,6 +126,37 @@ namespace ActionableEmailsTestApi.Controllers
 
                 // Further business logic code here to process the expense report.
             }
+
+
+            var errorMessage = string.Empty;
+            int updateEntry;
+            if(model.Data.TryGetValue("entryId", out string entryId) && int.TryParse( entryId, out int entryIdValue) && entryIdValue > 0)
+            {
+                updateEntry = entryIdValue;
+            }
+            else
+            {
+                errorMessage = errorMessage + " Wrong entry.";
+            }
+
+            int updateField;
+            if (model.Data.TryGetValue("fieldId", out string fieldId) && int.TryParse(fieldId, out int fieldIdValue) && fieldIdValue > 0)
+            {
+                updateField = fieldIdValue;
+            }
+            else
+            {
+                errorMessage = errorMessage + "wrong field";
+            }
+
+            var valueToSet = string.Empty;
+            if (model.Data.TryGetValue("value", out string value))
+            {
+                valueToSet = value;
+            }
+
+
+
 
 
             var responceJson = "{\r\n    \"type\": \"AdaptiveCard\",\r\n    \"body\": [\r\n        {\r\n            \"type\": \"TextBlock\",\r\n            \"size\": \"Medium\",\r\n            \"weight\": \"Bolder\",\r\n            \"text\": \"Your responce was processed\"\r\n        }\r\n    ],\r\n    \"$schema\": \"http://adaptivecards.io/schemas/adaptive-card.json\",\r\n    \"version\": \"1.0\"\r\n}";
