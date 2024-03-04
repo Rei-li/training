@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Reflection;
 using System.Threading.Tasks;
 using System.Web.Http;
-using static System.Net.Mime.MediaTypeNames;
-using Microsoft.O365.ActionableMessages.Utilities;
 using ActionableEmailsTestApi.Models;
+using System.Text;
 
 namespace ActionableEmailsTestApi.Controllers
 {
@@ -161,9 +158,10 @@ namespace ActionableEmailsTestApi.Controllers
 
             var responceJson = "{\r\n    \"type\": \"AdaptiveCard\",\r\n    \"body\": [\r\n        {\r\n            \"type\": \"TextBlock\",\r\n            \"size\": \"Medium\",\r\n            \"weight\": \"Bolder\",\r\n            \"text\": \"Your responce was processed\"\r\n        }\r\n    ],\r\n    \"$schema\": \"http://adaptivecards.io/schemas/adaptive-card.json\",\r\n    \"version\": \"1.0\"\r\n}";
 
-            HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, responceJson);
+            HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
             response.Headers.Add("CARD-ACTION-STATUS", "Accepted");
             response.Headers.Add("CARD-UPDATE-IN-BODY", "true");
+            response.Content = new StringContent(responceJson, Encoding.UTF8, "application/json");        
 
             return response;
         }
