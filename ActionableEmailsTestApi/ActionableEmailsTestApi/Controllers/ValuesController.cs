@@ -10,6 +10,9 @@ using System.Text;
 using AdaptiveCards;
 using System.Text.RegularExpressions;
 using System.Web;
+using DealCloud.Server.Common.Entities.Notifications.AdaptiveCards;
+using Newtonsoft.Json;
+using System.Xml.Linq;
 
 namespace ActionableEmailsTestApi.Controllers
 {
@@ -184,6 +187,12 @@ namespace ActionableEmailsTestApi.Controllers
             }
 
 
+            foreach (var item in card.Card.Body)
+            {
+                FindActionToUpdate(item, card.Card.ToJson());
+            }
+            
+
             // var responceJson = "{\r\n    \"type\": \"AdaptiveCard\",\r\n    \"body\": [\r\n        {\r\n            \"type\": \"TextBlock\",\r\n            \"size\": \"Medium\",\r\n            \"weight\": \"Bolder\",\r\n            \"text\": \"Your responce was processed\"\r\n        }\r\n    ],\r\n    \"$schema\": \"http://adaptivecards.io/schemas/adaptive-card.json\",\r\n    \"version\": \"1.0\"\r\n}";
 
             HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
@@ -224,6 +233,36 @@ namespace ActionableEmailsTestApi.Controllers
                                               
             }
             return null;
+        }
+
+        private void FindActionToUpdate(AdaptiveElement element, string newCard)
+        {
+            if (element is AdaptiveActionSet set)
+            {
+                foreach(var action in set.Actions)
+                {
+                    if(action.Type == "Action.Http")
+                    {
+                        var currentBody = action.AdditionalProperties["body"];
+                        var dataConfigModel = JsonConvert.DeserializeObject<CommentModel>(currentBody.ToString());
+                        dataConfigModel.Card = HttpUtility.UrlEncode(newCard);
+                        action.AdditionalProperties["body"] = JsonConvert.SerializeObject( dataConfigModel);
+                    }
+                }
+            }else
+
+                if (element is AdaptiveContainer container)
+            {
+                
+                
+                    foreach (var item in container.Items)
+                    {
+                        FindActionToUpdate(item, newCard);
+                       
+                    }
+                
+
+            }
         }
     }
 }
