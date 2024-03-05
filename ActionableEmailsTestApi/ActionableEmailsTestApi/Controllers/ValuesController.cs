@@ -189,7 +189,7 @@ namespace ActionableEmailsTestApi.Controllers
             HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
             response.Headers.Add("CARD-ACTION-STATUS", "Accepted");
             response.Headers.Add("CARD-UPDATE-IN-BODY", "true");
-            response.Content = new StringContent(card.ToString(), Encoding.UTF8, "application/json");        
+            response.Content = new StringContent(card.Card.ToJson(), Encoding.UTF8, "application/json");        
 
             return response;
         }
