@@ -8,11 +8,8 @@ using System.Web.Http;
 using ActionableEmailsTestApi.Models;
 using System.Text;
 using AdaptiveCards;
-using System.Text.RegularExpressions;
 using System.Web;
-using DealCloud.Server.Common.Entities.Notifications.AdaptiveCards;
 using Newtonsoft.Json;
-using System.Xml.Linq;
 
 namespace ActionableEmailsTestApi.Controllers
 {
