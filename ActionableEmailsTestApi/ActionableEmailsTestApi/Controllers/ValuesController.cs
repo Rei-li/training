@@ -214,9 +214,11 @@ namespace ActionableEmailsTestApi.Controllers
                 }
                 else
                 {
-                    foreach (var item in container)
+                    foreach (var item in container.Items)
                     {
-                        return FindContainerToUpdate(item, elementId);
+                        var t = FindContainerToUpdate(item, elementId);
+                        if (t != null)
+                        {  return t; }
                     }
                 }
                                               
