@@ -9,6 +9,7 @@ using ActionableEmailsTestApi.Models;
 using System.Text;
 using AdaptiveCards;
 using System.Text.RegularExpressions;
+using System.Web;
 
 namespace ActionableEmailsTestApi.Controllers
 {
@@ -155,7 +156,7 @@ namespace ActionableEmailsTestApi.Controllers
             }
 
 
-            var card = AdaptiveCard.FromJson(model.Card.ToString());
+            var card = AdaptiveCard.FromJson(HttpUtility.UrlDecode(model.Card.ToString()));
 
 
             AdaptiveContainer containerToUpdate = null;
