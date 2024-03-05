@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using ActionableEmailsTestApi.Models;
 using System.Text;
+using AdaptiveCards;
+using System.Text.RegularExpressions;
 
 namespace ActionableEmailsTestApi.Controllers
 {
@@ -58,7 +60,7 @@ namespace ActionableEmailsTestApi.Controllers
         // POST api/values
         public async Task<HttpResponseMessage> Post([FromBody] CommentModel model)
         {
-            HttpRequestMessage request = this.ActionContext.Request;
+            HttpRequestMessage request = this.ActionContext.Request;           
 
             var dict =  new Dictionary<string, string>();
             foreach (var t in model.Data)
@@ -153,15 +155,40 @@ namespace ActionableEmailsTestApi.Controllers
             }
 
 
+            var card = AdaptiveCard.FromJson(model.Card.ToString());
 
 
+            AdaptiveContainer containerToUpdate = null;
 
-            var responceJson = "{\r\n    \"type\": \"AdaptiveCard\",\r\n    \"body\": [\r\n        {\r\n            \"type\": \"TextBlock\",\r\n            \"size\": \"Medium\",\r\n            \"weight\": \"Bolder\",\r\n            \"text\": \"Your responce was processed\"\r\n        }\r\n    ],\r\n    \"$schema\": \"http://adaptivecards.io/schemas/adaptive-card.json\",\r\n    \"version\": \"1.0\"\r\n}";
+            foreach (var item in card.Card.Body)
+            {
+                var container = FindContainerToUpdate(item, model.ContainerId);
+                if (container != null)
+                {
+                    containerToUpdate = container;
+                    break;
+                }
+            }
+
+            if (containerToUpdate != null)
+            {
+                containerToUpdate.Items.Clear();
+                containerToUpdate.Items.Add(new AdaptiveTextBlock
+                {
+                    Text = "Value submitted successfully.",
+                    Color = AdaptiveTextColor.Good,
+                    Wrap = true,
+                    Weight = AdaptiveTextWeight.Bolder
+                });
+            }
+
+
+            // var responceJson = "{\r\n    \"type\": \"AdaptiveCard\",\r\n    \"body\": [\r\n        {\r\n            \"type\": \"TextBlock\",\r\n            \"size\": \"Medium\",\r\n            \"weight\": \"Bolder\",\r\n            \"text\": \"Your responce was processed\"\r\n        }\r\n    ],\r\n    \"$schema\": \"http://adaptivecards.io/schemas/adaptive-card.json\",\r\n    \"version\": \"1.0\"\r\n}";
 
             HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
             response.Headers.Add("CARD-ACTION-STATUS", "Accepted");
             response.Headers.Add("CARD-UPDATE-IN-BODY", "true");
-            response.Content = new StringContent(responceJson, Encoding.UTF8, "application/json");        
+            response.Content = new StringContent(card.ToString(), Encoding.UTF8, "application/json");        
 
             return response;
         }
@@ -174,6 +201,26 @@ namespace ActionableEmailsTestApi.Controllers
         // DELETE api/values/5
         public void Delete(int id)
         {
+        }
+
+        private AdaptiveContainer FindContainerToUpdate(AdaptiveElement element, string elementId)
+        {
+            if(element is AdaptiveContainer container)
+            {
+                if (container.Id == elementId)
+                {
+                    return container;
+                }
+                else
+                {
+                    foreach (var item in container)
+                    {
+                        return FindContainerToUpdate(item, elementId);
+                    }
+                }
+                                              
+            }
+            return null;
         }
     }
 }
