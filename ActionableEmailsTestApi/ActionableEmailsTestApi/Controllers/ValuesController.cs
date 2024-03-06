@@ -179,7 +179,8 @@ namespace ActionableEmailsTestApi.Controllers
                     Text = "Value submitted successfully.",
                     Color = AdaptiveTextColor.Good,
                     Wrap = true,
-                    Weight = AdaptiveTextWeight.Bolder
+                    Weight = AdaptiveTextWeight.Bolder,
+                    HorizontalAlignment = AdaptiveHorizontalAlignment.Center
                 });
             }
 
